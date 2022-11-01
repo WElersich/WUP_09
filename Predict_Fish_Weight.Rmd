@@ -16,6 +16,7 @@ output:
 ```{r include=FALSE,echo=FALSE}
 require(tigerstats)
 require(tidyverse)
+Fish <- read.csv("Fish.csv")
 ```
 
 # Predicting Fish Weight
@@ -23,21 +24,44 @@ require(tidyverse)
 
 ## Perch
 
+```{r}
+Perch <- filter(Fish, Species == "Perch") %>%
+  select("Weight", "Length1", "Length2", "Length3", "Height", "Width")
+```
+
 ### Best Models
+
+
 
 ### Best Two regressor model
 
 
 ## Bream
 
+```{r}
+Bream <- filter(Fish, Species == "Bream") %>%
+  select("Weight", "Length1", "Length2", "Length3", "Height", "Width")
+```
+
 ### Best Models
 
+
+
 ### Best Two regressor model
+
 
 ## Roach
 
+```{r}
+Roach <- filter(Fish, Species == "Roach") %>%
+  select("Weight", "Length1", "Length2", "Length3", "Height", "Width")
+```
+
 ### Best Models
 
+
+
 ### Best Two regressor model
+
 
 ## Final Summary Statements
