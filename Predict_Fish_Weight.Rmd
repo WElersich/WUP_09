@@ -51,7 +51,7 @@ library(car)
 subsets(regsubsets.out,statistic="adjr2",legend="bottomright",main="Adjusted R^2")
 ```
 
-The best model is the Two Regressor model predicts Weight by Height and Width, which gives the highest adjusted R-sqaured value.
+The best model is the Two Regressor model that predicts Weight by Height and Width, which gives the highest adjusted R-sqaured value.
 
 ```{R}
 PerchModel <- lm(Weight~Height + Width, data = Perch)
@@ -124,5 +124,7 @@ as.data.frame(summary.out$outmat)
 library(car)
 subsets(regsubsets.out,statistic="adjr2",legend="bottomright",main="Adjusted R^2")
 ```
+
+By looking at the adjusted R-squared value, we can conclude that the best model is the two regression model, which predicts based off Length3 and Width.
 
 ## Final Summary Statements
