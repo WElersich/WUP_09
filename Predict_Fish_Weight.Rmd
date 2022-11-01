@@ -26,7 +26,7 @@ Fish <- read.csv("Fish.csv")
 
 ```{r}
 Perch <- filter(Fish, Species == "Perch") %>%
-  select("Weight", "Length1", "Length2", "Length3", "Height", "Width")
+  select(-Species)
 ```
 
 ### Best Models
@@ -69,7 +69,7 @@ These two models, PerchModel and PerchModel1, confirm, through the residual stan
 
 ```{r}
 Bream <- filter(Fish, Species == "Bream") %>%
-  select("Weight", "Length1", "Length2", "Length3", "Height", "Width")
+  select(-Species)
 ```
 
 ### Best Models
@@ -94,13 +94,13 @@ library(car)
 subsets(regsubsets.out,statistic="adjr2",legend="bottomright",main="Adjusted R^2")
 ```
 
-The three regressor model, which predicts Weight by Height, Width, and Length1 is the best model, because it has the highest adjusted r-squared value.
+The three regressor model, which predicts Weight by Height, Width, and Length1 is the best model, because it has the highest adjusted r-squared value. The best two regressor model predicts based on Length2 and Height.
 
 ## Roach
 
 ```{r}
 Roach <- filter(Fish, Species == "Roach") %>%
-  select("Weight", "Length1", "Length2", "Length3", "Height", "Width")
+  select(-Species)
 ```
 
 ### Best Models
@@ -109,5 +109,20 @@ Roach <- filter(Fish, Species == "Roach") %>%
 
 ### Best Two regressor model
 
+```{r}
+library(leaps)
+regsubsets.out <-
+    regsubsets(Weight ~ .,
+               data = Roach,
+               nbest = 1,       # 1 best model for each number of predictors
+               nvmax = NULL,    # NULL for no limit on number of variables
+               force.in = NULL, force.out = NULL,
+               method = "exhaustive")
+
+summary.out <- summary(regsubsets.out)
+as.data.frame(summary.out$outmat)
+library(car)
+subsets(regsubsets.out,statistic="adjr2",legend="bottomright",main="Adjusted R^2")
+```
 
 ## Final Summary Statements
