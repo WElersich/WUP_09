@@ -35,6 +35,35 @@ Perch <- filter(Fish, Species == "Perch") %>%
 
 ### Best Two regressor model
 
+```{r}
+library(leaps)
+regsubsets.out <-
+    regsubsets(Weight ~ .,
+               data = Perch,
+               nbest = 1,       # 1 best model for each number of predictors
+               nvmax = NULL,    # NULL for no limit on number of variables
+               force.in = NULL, force.out = NULL,
+               method = "exhaustive")
+
+summary.out <- summary(regsubsets.out)
+as.data.frame(summary.out$outmat)
+library(car)
+subsets(regsubsets.out,statistic="adjr2",legend="bottomright",main="Adjusted R^2")
+```
+
+The best Two Regressor model predicts Weight by Height, which gives the highest adjusted R-sqaured value.
+
+```{R}
+PerchModel <- lm(Weight~Height + Width, data = Perch)
+summary.lm(PerchModel)
+```
+
+```{R}
+PerchModel1 <- lm(Weight~Height + Width + Length2, data = Perch)
+summary.lm(PerchModel1)
+```
+
+These two models, PerchModel and PerchModel1, confirm, through the residual standard errors and Adjusted R-squared values confirm that the above two regressor model is accurate.
 
 ## Bream
 
