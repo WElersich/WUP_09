@@ -48,7 +48,7 @@ regsubsets.out <-
 summary.out <- summary(regsubsets.out)
 as.data.frame(summary.out$outmat)
 library(car)
-subsets(regsubsets.out,statistic="adjr2",legend="bottomright",main="Adjusted R^2")
+subsets(regsubsets.out,statistic="adjr2",legend="topright",main="Adjusted R^2")
 ```
 
 The best model is the Two Regressor model that predicts Weight by Height and Width, which gives the highest adjusted R-sqaured value.
@@ -96,6 +96,18 @@ subsets(regsubsets.out,statistic="adjr2",legend="bottomright",main="Adjusted R^2
 
 The three regressor model, which predicts Weight by Height, Width, and Length1 is the best model, because it has the highest adjusted r-squared value. The best two regressor model predicts based on Length2 and Height.
 
+```{R}
+BreamModel <- lm(Weight~Height + Width + Length1, data = Bream)
+summary.lm(PerchModel1)
+```
+
+
+```{R}
+BreamModel1 <- lm(Weight~Height + Length2, data = Bream)
+summary.lm(PerchModel1)
+```
+
+
 ## Roach
 
 ```{r}
@@ -122,9 +134,20 @@ regsubsets.out <-
 summary.out <- summary(regsubsets.out)
 as.data.frame(summary.out$outmat)
 library(car)
-subsets(regsubsets.out,statistic="adjr2",legend="bottomright",main="Adjusted R^2")
+subsets(regsubsets.out,statistic="adjr2",legend="topright",main="Adjusted R^2")
 ```
 
 By looking at the adjusted R-squared value, we can conclude that the best model is the two regression model, which predicts based off Length3 and Width.
 
+```{R}
+RoachModel <- lm(Weight~Length3 + Width, data = Roach)
+summary.lm(PerchModel)
+```
+
 ## Final Summary Statements
+
+```{r}
+favstats(Weight~Species, data = Fish)
+```
+
+
