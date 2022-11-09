@@ -31,10 +31,6 @@ Perch <- filter(Fish, Species == "Perch") %>%
 
 ### Best Models
 
-
-
-### Best Two regressor model
-
 ```{r}
 library(leaps)
 regsubsets.out <-
@@ -50,6 +46,10 @@ as.data.frame(summary.out$outmat)
 library(car)
 subsets(regsubsets.out,statistic="adjr2",legend="topright",main="Adjusted R^2")
 ```
+
+### Best Two regressor model
+
+
 
 The best model is the Two Regressor model that predicts Weight by Height and Width, which gives the highest adjusted R-sqaured value.
 
@@ -78,9 +78,6 @@ Bream <- filter(Fish, Species == "Bream") %>%
 ### Best Models
 
 
-
-### Best Two regressor model
-
 ```{r}
 library(leaps)
 regsubsets.out <-
@@ -98,6 +95,9 @@ subsets(regsubsets.out,statistic="adjr2",legend="bottomright",main="Adjusted R^2
 ```
 
 The three regressor model, which predicts Weight by Height, Width, and Length1 is the best model, because it has the highest adjusted r-squared value. The best two regressor model predicts based on Length2 and Height.
+
+### Best Two regressor model
+
 
 ```{R}
 BreamModel <- lm(Weight~Height + Width + Length1, data = Bream)
@@ -120,10 +120,6 @@ Roach <- filter(Fish, Species == "Roach") %>%
 
 ### Best Models
 
-
-
-### Best Two regressor model
-
 ```{r}
 library(leaps)
 regsubsets.out <-
@@ -142,6 +138,10 @@ subsets(regsubsets.out,statistic="adjr2",legend="topright",main="Adjusted R^2")
 
 By looking at the adjusted R-squared value, we can conclude that the best model is the two regression model, which predicts based off Length3 and Width.
 
+
+### Best Two regressor model
+
+
 ```{R}
 RoachModel <- lm(Weight~Length3 + Width, data = Roach)
 summary.lm(RoachModel)
@@ -151,25 +151,5 @@ The adjusted R-squared value is 0.0.8482. The Residual standard error is 34.61.
 
 ## Final Summary Statements
 
-```{r}
-favstats(Weight~Species, data = Fish)
-```
+Using leaps, multiple linear regression is much easier. By doing so, we determined the best models for predicting the weight of three types of fish: bream, perch, roach. We also used linear models to confirm the accuracy of our regression.
 
-Bream have a mean weight of 617.8257, which is nearly twice as large as the mean weight of Perch, at 382.23929. Perch are more than twice as heavy on average as Roach, which have a mean weight of 152.03000. The standard deviation for Bream is 209.205709, the standard deviation for Perch is nearly twice that at 347.617717, and the standard deviation for Roach is less than half that of Bream, at 88.828916. 
-
-The ratio of the mean weight of a bream to the mean weight of a perch is 1.616332, the ratio of the mean weight of a perch to a roach is 2.513905, and the ratio of the mean weight of a roach to a bream 0.246105
-
-For the best Perch model, the adjusted r-squared value is 0.94. The residual standard error is 85.17. For the best 2 regressor Bream model, The adjusted R-squared value is 0.9356. The Residual standard error is 53.1.
-
-```{r}
-basicPerch <- ggplot(Perch,aes(y=Weight,x=Length3)) + geom_point() + geom_lm()
-basicPerch
-```
-```{r}
-basicBream <- ggplot(Bream,aes(y=Weight,x=Length1)) + geom_point() + geom_lm()
-basicBream
-```
-```{r}
-basicRoach <- ggplot(Roach,aes(y=Weight,x=Length1)) + geom_point()
-basicRoach
-```
